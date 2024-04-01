@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "compilerOptions": {
     "esModuleInterop": true,
@@ -9,3 +10,16 @@
     "allowJs": true
   }
 }
+=======
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "resolveJsonModule": true,
+    "target": "ES2017",
+    "module": "commonjs",
+    "allowJs": true
+  }
+}
+>>>>>>> 8465c35f64ac03ec6455dbe8b0b23c2c4cacd02c
