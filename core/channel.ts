@@ -68,16 +68,16 @@ export class ChannelApi {
   }
 
   async setWebHook(): Promise<boolean> {
-    const currentHooks = await this.getWebHooks();
-    if (currentHooks.find((elem) => elem.url === config.webhookUrl)) return true;
+    let currentHooks = await this.getWebHooks();
+    if (currentHooks.find((elem) => elem.url === config.webhookUrl + "/hook"))
+      return true;
     const index = currentHooks.findIndex((elem) => elem.url.includes("ngrok"));
-    if (index !== -1) currentHooks[index].url = config.webhookUrl;
-    else
-      currentHooks.push({
-        events: [{ type: "messages", method: "post" }],
-        mode: "body",
-        url: config.webhookUrl + "/hook",
-      });
+    if (index !== -1) currentHooks = currentHooks.splice(index, 1);
+    currentHooks.push({
+      events: [{ type: "messages", method: "post" }],
+      mode: "body",
+      url: config.webhookUrl + "/hook",
+    });
     const options = {
       method: "PATCH",
       headers: {
@@ -85,7 +85,7 @@ export class ChannelApi {
         "content-type": "application/json",
         authorization: `Bearer ${this.token}`,
       },
-      body: JSON.stringify({webhooks: currentHooks}),
+      body: JSON.stringify({ webhooks: currentHooks }),
     };
 
     const responseRaw = await fetch(
