@@ -4,7 +4,7 @@ import http from "http";
 import { Express } from "express-serve-static-core";
 import * as fs from "fs";
 import { DBFiles } from "./files";
-import { Mailer } from "./mailer";
+import { Mailer, colors } from "./mailer";
 import config from "../config";
 import { RecieverWithStatus } from "../types/index";
 
@@ -63,6 +63,7 @@ export class ExpressServer {
       const mailer = new Mailer(config.spreadSheetUrl);
       const isAccess = await mailer.checkPermission(); // check access to google table
       if (!isAccess) throw 403;
+      await mailer.setStatus(reciever.row, "Response recieved", colors.green)
       await mailer.setRecievedMessage(reciever, senderText); // set recieved message to google table
       res.status(200).send("OK");
     });

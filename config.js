@@ -1,8 +1,9 @@
 
 const config = {
     "numberColumn": "A",
-    "recievedMessageColumn": "C",
+    "recievedMessageColumn": "D",
     "messageColumn": "B",
+    "statusColumn": "C",
     "token": "", // channel token
     "webhookUrl": "", // Webhook Link to your server. At ( {server link} ), when POST is requested, processing occurs
     "sendDelay": 20000, // delay between mailings (1 sec = 1000)
